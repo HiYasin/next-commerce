@@ -1,0 +1,6 @@
+name: Get User List
+method: GET
+url: http://localhost:3000/api/user
+body:
+  type: json
+  content: ''
