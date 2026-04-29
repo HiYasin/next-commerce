@@ -1,0 +1,6 @@
+name: Logut User
+method: POST
+url: http://localhost:3000/api/auth/logout
+body:
+  type: json
+  content: ''
