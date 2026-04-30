@@ -23,16 +23,15 @@ class ApiClient {
         const response = await fetch(url, config);
         
         // Handle non-OK responses
+        if (response.status === 401) {
+            // Handle unauthorized access
+            return null; // or you can choose to throw an error or redirect to login
+            // throw new Error('Unauthorized access');
+        }        
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({ message: 'Unknown error occurred' }));
             throw new Error(errorData.message || 'API request failed');
-            // return null;
         }
-        if (response.status === 401) {
-            // Handle unauthorized access
-            throw new Error('Unauthorized access');
-        }
-        
         return await response.json();
     }
 
