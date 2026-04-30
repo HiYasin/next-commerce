@@ -47,14 +47,16 @@ export const getCurrentUser = async (): Promise<User | null> => {
         }
         const userFromDb = await prisma.user.findUnique({
             where: { id: decoded.userId },
+            omit: {
+                passwordHash: true
+            }
         });
 
         if (!userFromDb) {
             return null;
         }
 
-        const { passwordHash, ...user } = userFromDb;
-        return user as User;
+        return userFromDb as User;
 
     } catch (error) {
         console.error("Error getting current user:", error);
