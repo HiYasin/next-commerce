@@ -1,12 +1,7 @@
-import "dotenv/config";
 import { hashPassword } from "@/lib/auth";
-// import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/db";
 import { UserRole } from "@/types";
-import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient } from "@/generated/prisma";
-const connectionString = `${process.env.DATABASE_URL}`
-const adapter = new PrismaPg({ connectionString })
-const prisma = new PrismaClient({ adapter })
+
 
 async function main() {
     console.log("Seeding database...");
@@ -19,7 +14,7 @@ async function main() {
     // const existingAdmin = false;
 
     if (!existingAdmin) {
-        const adminUser = await prisma.user.create({
+        await prisma.user.create({
             data: {
                 email: adminEmail,
                 passwordHash: await hashPassword(adminPassword),
@@ -28,11 +23,10 @@ async function main() {
                 role: UserRole.ADMIN
             }
         });
-        console.log("Admin user created:", adminUser);
+        console.log("✅ Admin user created successfully.");
     }
     else {
-        console.log("Admin user already exists.");
-        console.log(existingAdmin);
+        console.log("‼️ Admin user already exists.");
     }
 
     // You can add more seeding logic here for products, categories, etc.

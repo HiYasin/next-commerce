@@ -1,4 +1,4 @@
-import { generateToken, hashPassword, verifyPassword } from "@/lib/auth";
+import { generateToken, verifyPassword } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -16,12 +16,12 @@ export async function POST(request: NextRequest) {
         }
 
         // Verify password
-        const isPasswordValid = await verifyPassword(password, userFromDb.passwordHash);
+        const { passwordHash, ...userData} = userFromDb;
+        const isPasswordValid = await verifyPassword(password, passwordHash);
         if(!isPasswordValid) {
             return NextResponse.json({ message: "Invalid email or password" }, { status: 401 });
         }
 
-        const { passwordHash, ...userData} = userFromDb;
 
         // Generate token and set cookie (optional, can be done in a separate login step)
         const token = generateToken(userFromDb.id);

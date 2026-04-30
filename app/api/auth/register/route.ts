@@ -6,13 +6,13 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
     try {
         const { email, password, firstName, lastName } = await request.json();
-        if(!email || !password || !firstName || !lastName) {
+        if (!email || !password || !firstName || !lastName) {
             return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
         }
 
         //Find existing user with the same email
         const existingUser = await prisma.user.findUnique({ where: { email } });
-        if(existingUser) {
+        if (existingUser) {
             return NextResponse.json({ message: "Email already in use" }, { status: 409 });
         }
 
@@ -32,7 +32,20 @@ export async function POST(request: NextRequest) {
         const token = generateToken(newUser.id);
 
         // Set token in HTTP-only cookie
-        const response = NextResponse.json({ message: "User created successfully", user: newUser }, { status: 201 });
+        const response = NextResponse.json({
+            message: "User created successfully",
+            user: {
+                id: newUser.id,
+                email: newUser.email,
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                role: newUser.role,
+                createdAt: newUser.createdAt,
+                updatedAt: newUser.updatedAt,
+            }
+        }, { 
+            status: 201
+        });
 
         response.cookies.set("token", token, {
             httpOnly: true,

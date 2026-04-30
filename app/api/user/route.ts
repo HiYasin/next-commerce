@@ -1,7 +1,6 @@
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-import { count } from "node:console";
 
 export async function GET(request: NextRequest) {
   try {

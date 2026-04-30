@@ -1,7 +1,7 @@
 // import { PrismaClient } from "@prisma/client";
 
 // export const prisma = new PrismaClient();
-
+import "dotenv/config";
 import { PrismaClient } from "../generated/prisma/client"; 
 import { PrismaPg } from "@prisma/adapter-pg"; 
 const globalForPrisma = global as unknown as {

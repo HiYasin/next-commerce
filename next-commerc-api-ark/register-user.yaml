@@ -3,4 +3,4 @@ method: POST
 url: http://localhost:3000/api/auth/register
 body:
   type: json
-  content: "{\r\n  \"email\": \"admin@gmail.com\",\r\n  \"firstName\": \"Admin\",\r\n  \"lastName\": \"User\",\r\n  \"password\": \"123456\"\r\n}"
+  content: "{\r\n  \"email\": \"manik1@gmail.com\",\r\n  \"firstName\": \"Md\",\r\n  \"lastName\": \"Manik\",\r\n  \"password\": \"123456\"\r\n}"
