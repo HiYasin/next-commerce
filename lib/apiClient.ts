@@ -32,6 +32,8 @@ class ApiClient {
             // Handle unauthorized access
             throw new Error('Unauthorized access');
         }
+        
+        return await response.json();
     }
 
     // Auth Methods
@@ -82,3 +84,5 @@ class ApiClient {
         });
     }
 }
+
+export const apiClient = new ApiClient();

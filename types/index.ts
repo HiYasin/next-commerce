@@ -16,3 +16,10 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface AuthContextType {
+  user: User | null;
+  login: (formData: FormData) => void;
+  logout: () => void;
+  hasPermission: (requiredRole: UserRole) => boolean;
+}
