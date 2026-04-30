@@ -1,0 +1,6 @@
+name: Update User Role
+method: PATCH
+url: http://localhost:3000/api/user/030b1732-e1b3-41a8-87c7-ba110225cc47
+body:
+  type: json
+  content: "{\r\n  \"role\": \"CUSTOMER\"\r\n}"
