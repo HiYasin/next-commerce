@@ -1,10 +1,13 @@
 import Header from '@/components/layout/Header';
+import { getCurrentUser } from '@/lib/auth';
 import React from 'react';
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const MainLayout = async({ children }: { children: React.ReactNode }) => {
+    const user = await getCurrentUser();
+
     return (
         <>
-            <Header user={null}/>
+            <Header user={user}/>
             <main className='container mx-auto px-4 py-8'>
                 {children}
             </main>
